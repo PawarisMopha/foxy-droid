@@ -19,12 +19,13 @@ buildscript {
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 
+setProperty("archivesBaseName", "Foxy-Droid")
+
 android {
     compileSdkVersion 34
     buildToolsVersion '34.0.0'
 
     defaultConfig {
-        archiveBaseName = 'Foxy-Droid'
         applicationId "nya.kitsunyan.foxydroid"
         minSdkVersion 21
         targetSdkVersion 34
