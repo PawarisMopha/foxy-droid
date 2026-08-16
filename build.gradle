@@ -48,7 +48,7 @@ android {
     }
 
     kotlinOptions {
-        jvmTarget = compileOptions.sourceCompatibility.toString()
+        jvmTarget = '17'
     }
 
     buildTypes {
