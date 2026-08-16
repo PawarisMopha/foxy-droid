@@ -22,6 +22,7 @@ apply plugin: 'kotlin-android'
 setProperty("archivesBaseName", "Foxy-Droid")
 
 android {
+    namespace 'nya.kitsunyan.foxydroid'
     compileSdkVersion 34
     buildToolsVersion '34.0.0'
     
@@ -63,7 +64,6 @@ android {
         release {   
             minifyEnabled true
             shrinkResources false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         all {
             crunchPngs false
@@ -83,6 +83,9 @@ android {
         exclude '/META-INF/**.kotlin_module'
         exclude '/META-INF/**.pro'
         exclude '/META-INF/**.version'
+        exclude 'kotlin/**'
+        exclude 'META-INF/*.version'
+        exclude 'okhttp3/internal/publicsuffix/'
         exclude '/okhttp3/internal/publicsuffix/*'
     }
 
