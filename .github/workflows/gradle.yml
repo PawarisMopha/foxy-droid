@@ -24,9 +24,7 @@ jobs:
           java-version: '17'
 
       - name: Build with Gradle
-        run: |
-          ./gradlew wrapper --gradle-version 8.7
-          ./gradlew assembleDebug lintVitalRelease
+        run: ./gradlew assembleDebug lintVitalRelease
 
       - name: Upload artifact
         uses: actions/upload-artifact@v7.0.1
