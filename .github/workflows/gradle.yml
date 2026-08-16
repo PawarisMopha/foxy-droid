@@ -29,5 +29,8 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v7.0.1
         with:
-          name: app-debug.apk
-          path: app/build/outputs/apk/debug/app-debug.apk
+          name: Foxy-Droid-APK
+          path: '**/build/outputs/apk/**/*.apk'
+          overwrite: true
+          include-hidden-files: true
+          
