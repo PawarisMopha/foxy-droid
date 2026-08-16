@@ -13,7 +13,7 @@ buildscript {
   dependencies {
         classpath "com.android.tools.build:gradle:${versions.android}"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}"
-    }
+  }
 }
 
 apply plugin: 'com.android.application'
@@ -41,92 +41,93 @@ android {
         it.java.srcDirs += new File(javaDir.parentFile, 'kotlin')
     }
 
-  compileOptions {
-    sourceCompatibility JavaVersion.VERSION_17
-    targetCompatibility JavaVersion.VERSION_17
-  }
-
-  kotlinOptions {
-    jvmTarget = compileOptions.sourceCompatibility.toString()
-  }
-
-  buildTypes {
-    debug {
-      minifyEnabled false
-      shrinkResources false
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
-    release {
-      minifyEnabled true
-      shrinkResources false
+
+    kotlinOptions {
+        jvmTarget = compileOptions.sourceCompatibility.toString()
     }
-    all {
-      crunchPngs false
-      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard.pro'
+
+    buildTypes {
+        debug {
+            minifyEnabled false
+            shrinkResources false
+        }
+        release {   
+            minifyEnabled true
+            shrinkResources false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        all {
+            crunchPngs false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard.pro'
+        }
     }
-  }
 
-  lintOptions {
-    warning 'InvalidPackage'
-    ignore 'InvalidVectorPath'
-  }
+    lintOptions {
+        warning 'InvalidPackage'
+        ignore 'InvalidVectorPath'
+    }
 
-  packagingOptions {
-    exclude '/DebugProbesKt.bin'
-    exclude '/kotlin/**.kotlin_builtins'
-    exclude '/kotlin/**.kotlin_metadata'
-    exclude '/META-INF/**.kotlin_module'
-    exclude '/META-INF/**.pro'
-    exclude '/META-INF/**.version'
-    exclude '/okhttp3/internal/publicsuffix/*'
-  }
+    packagingOptions {
+        exclude '/DebugProbesKt.bin'
+        exclude '/kotlin/**.kotlin_builtins'
+        exclude '/kotlin/**.kotlin_metadata'
+        exclude '/META-INF/**.kotlin_module'
+        exclude '/META-INF/**.pro'
+        exclude '/META-INF/**.version'
+        exclude '/okhttp3/internal/publicsuffix/*'
+    }
 
-  def keystorePropertiesFile = rootProject.file('keystore.properties')
-  if (keystorePropertiesFile.exists()) {
-    def keystoreProperties = new Properties()
-    keystoreProperties.load(keystorePropertiesFile.newDataInputStream())
+    def keystorePropertiesFile = rootProject.file('keystore.properties')
+    if (keystorePropertiesFile.exists()) {
+      def keystoreProperties = new Properties()
+      keystoreProperties.load(keystorePropertiesFile.newDataInputStream())
 
-    def signing = [
-      storeFile: keystoreProperties['store.file'],
-      storePassword: keystoreProperties['store.password'],
-      keyAlias: keystoreProperties['key.alias'],
-      keyPassword: keystoreProperties['key.password']
-    ]
+      def signing = [
+        storeFile: keystoreProperties['store.file'],
+        storePassword: keystoreProperties['store.password'],
+        keyAlias: keystoreProperties['key.alias'],
+        keyPassword: keystoreProperties['key.password']
+      ]
 
-    if (!signing.any { _, v -> v == null }) {
-      signingConfigs {
-        primary {
-          storeFile file(signing.storeFile)
-          storePassword signing.storePassword
-          keyAlias signing.keyAlias
-          keyPassword signing.keyPassword
-          v2SigningEnabled false
+      if (!signing.any { _, v -> v == null }) {
+        signingConfigs {
+          primary {
+            storeFile file(signing.storeFile)
+            storePassword signing.storePassword
+            keyAlias signing.keyAlias
+            keyPassword signing.keyPassword
+            v2SigningEnabled false
+          }
+        }
+
+        buildTypes {
+          debug.signingConfig signingConfigs.primary
+          release.signingConfig signingConfigs.primary
         }
       }
-
-      buildTypes {
-        debug.signingConfig signingConfigs.primary
-        release.signingConfig signingConfigs.primary
-      }
     }
   }
-}
 
-repositories {
-  google()
-  jcenter()
-  mavenCentral()
-}
+  repositories {
+    google()
+    jcenter()
+    mavenCentral()
+  }
 
-dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:${versions.kotlin}"
-    implementation 'androidx.core:core-ktx:1.12.0'
-    implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'androidx.fragment:fragment:1.6.2'
-    implementation 'androidx.viewpager2:viewpager2:1.0.0'
-    implementation 'androidx.vectordrawable:vectordrawable:1.1.0'
-    implementation 'com.squareup.okhttp3:okhttp:4.12.0'
-    implementation 'io.reactivex.rxjava2:rxjava:2.2.21'
-    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
-    implementation 'com.fasterxml.jackson.core:jackson-core:2.11.0'
-    implementation 'com.squareup.picasso:picasso:2.71828'
-}
+  dependencies {
+      implementation "org.jetbrains.kotlin:kotlin-stdlib:${versions.kotlin}"
+      implementation 'androidx.core:core-ktx:1.12.0'
+      implementation 'androidx.appcompat:appcompat:1.6.1'
+      implementation 'androidx.fragment:fragment:1.6.2'
+      implementation 'androidx.viewpager2:viewpager2:1.0.0'
+      implementation 'androidx.vectordrawable:vectordrawable:1.1.0'
+      implementation 'com.squareup.okhttp3:okhttp:4.12.0'
+      implementation 'io.reactivex.rxjava2:rxjava:2.2.21'
+      implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
+      implementation 'com.fasterxml.jackson.core:jackson-core:2.11.0'
+      implementation 'com.squareup.picasso:picasso:2.71828'
+  }
