@@ -24,7 +24,11 @@ setProperty("archivesBaseName", "Foxy-Droid")
 android {
     compileSdkVersion 34
     buildToolsVersion '34.0.0'
-
+    
+    buildFeatures {
+        buildConfig true
+    }
+  
     defaultConfig {
         applicationId "nya.kitsunyan.foxydroid"
         minSdkVersion 21
