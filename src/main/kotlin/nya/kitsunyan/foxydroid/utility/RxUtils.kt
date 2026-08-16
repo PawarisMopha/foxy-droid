@@ -2,11 +2,14 @@ package nya.kitsunyan.foxydroid.utility
 
 import android.os.CancellationSignal
 import android.os.OperationCanceledException
-import io.reactivex.rxjava3.core.Single
-import io.reactivex.rxjava3.disposables.Disposable
-import io.reactivex.rxjava3.exceptions.CompositeException
-import io.reactivex.rxjava3.exceptions.Exceptions
-import io.reactivex.rxjava3.plugins.RxJavaPlugins
+import io.reactivex.Single
+import io.reactivex.SingleTransformer
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
+import io.reactivex.disposables.Disposable
+import io.reactivex.exceptions.CompositeException
+import io.reactivex.exceptions.Exceptions
+import io.reactivex.plugins.RxJavaPlugins
 import okhttp3.Call
 import okhttp3.Response
 
